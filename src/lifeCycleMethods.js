@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 
 // componentWillMount only runs once before the initial rendering
-export function componentWillMount(callback) {
+export function useComponentWillMount(callback) {
   const render = useRef(false);
   if (!render.current) {
     callback();
@@ -10,7 +10,7 @@ export function componentWillMount(callback) {
 }
 
 // componentWillUpdate runs on every update after first rendering before each endering
-export function componentWillUpdate(callback) {
+export function useComponentWillUpdate(callback) {
   const firstRender = useRef(true);
   if (!firstRender.current) {
     callback();
@@ -20,7 +20,7 @@ export function componentWillUpdate(callback) {
 }
 
 // componentDidMount runs once after the intial rendering
-export function componentDidMount(callback) {
+export function useComponentDidMount(callback) {
   const intialRender = useRef(true);
   useEffect(() => {
     if (intialRender.current) {
@@ -31,7 +31,7 @@ export function componentDidMount(callback) {
 }
 
 // componentDidUpdate runs after every update after intial rendering
-export function componentDidUpdate(callback) {
+export function useComponentDidUpdate(callback) {
   const intialRender = useRef(true);
   useEffect(() => {
     if (!intialRender.current) {
@@ -43,6 +43,8 @@ export function componentDidUpdate(callback) {
 }
 
 // componentWillRecieveProps runs on every update if the given deps change
-export function componentWillReceiveProps(callback, deps) {
-  useEffect(callback, deps);
+export function useComponentWillReceiveProps(callback, deps) {
+  useEffect(() => {
+    callback();
+  }, [deps]);
 }
